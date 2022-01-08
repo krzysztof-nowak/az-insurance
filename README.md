@@ -18,67 +18,70 @@ AZ Insurance is a sample application that demonstrates how to build customer, pa
 
 ## Installing AZ Insurance using a Scratch Org
 
-1.  Set up your environment. Follow the steps in the [Quick Start: Lightning Web Components](https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components/) Trailhead project. The steps include:
+1. Set up your environment. Follow the steps in the [Quick Start: Lightning Web Components](https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components/) Trailhead project. The steps include:
 
     -   Enable Dev Hub in your Trailhead Playground
     -   Install Salesforce CLI
     -   Install Visual Studio Code
     -   Install the Visual Studio Code Salesforce extensions, including the Lightning Web Components extension
 
-1.  If you haven't already done so, authorize your hub org and provide it with an alias (**myhuborg** in the command below):
+2. If you haven't already done so, authorize your hub org and provide it with an alias (**myhuborg** in the command below):
 
     ```zsh
     sfdx auth:web:login -d -a myhuborg
     ```
 
-1.  Clone the repository:
+3. Clone the repository:
 
     ```zsh
     git clone https://github.com/trailheadapps/az-insurance
     cd az-insurance
     ```
 
-1.  Create a scratch org and provide it with an alias (**az-insurance** in the command below):
+4. Create a scratch org and provide it with an alias (**az-insurance** in the command below):
 
     ```zsh
     sfdx force:org:create -s -f config/project-scratch-def.json -a az-insurance
     ```
-
-1.  Create a dummy Experience site. This is currently a necessary intermediate step to provision Experience Cloud related metadata before deploying our site.
+    OR
+    ```zsh
+   sfdx force:org:create -s -f config/project-scratch-def.json -a az-insurance release=preview
+    ```
+6. Create a dummy Experience site. This is currently a necessary intermediate step to provision Experience Cloud related metadata before deploying our site.
 
     ```zsh
     sfdx force:community:create --name "Dummy" --templatename "Aloha" -p "dummy"
     ```
 
-1.  Deploy Salesforce org metadata (does not contain Experience site metadata, a current product bug prevents a deploy of all metadata at once):
+7. Deploy Salesforce org metadata (does not contain Experience site metadata, a current product bug prevents a deploy of all metadata at once):
 
     ```zsh
     sfdx force:source:deploy -m ApexClass,Layout,CustomObject,LightningComponentBundle,ManagedContentType,CustomObject,StaticResource,CustomTab,PermissionSet,Flow
     ```
 
-1.  Deploy Experience site metadata:
+8. Deploy Experience site metadata:
 
     ```zsh
     sfdx force:source:deploy -m ApexPage,CustomSite,ExperienceBundle,NavigationMenu,Network,Profile
     ```
 
-1.  Assign the **LWR_Marketing_Builder** permission set to the default user:
+9. Assign the **LWR_Marketing_Builder** permission set to the default user:
 
     ```zsh
     sfdx force:user:permset:assign -n LWR_Marketing_Builder
     ```
 
-1.  Publish the Marketing site. The site URL will be printed via the CLI, and you'll receive a notification via email:
+10. Publish the Marketing site. The site URL will be printed via the CLI, and you'll receive a notification via email:
 
-    ```zsh
-    sfdx force:community:publish -n "LWR Demo Marketing"
-    ```
+     ```zsh
+     sfdx force:community:publish -n "LWR Demo Marketing"
+     ```
 
-1.  Open the scratch org:
+11. Open the scratch org:
 
-    ```
-    sfdx force:org:open
-    ```
+     ```
+     sfdx force:org:open
+     ```
 
 As the sample app uses data from Salesforce CMS we have to import the provided sample data.
 
